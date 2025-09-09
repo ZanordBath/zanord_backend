@@ -8,7 +8,7 @@ const axios = require("axios");
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // Allow all origins (temporary for debugging)
+  origin: "https://zanordbath.com", // Allow all origins (temporary for debugging)
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
