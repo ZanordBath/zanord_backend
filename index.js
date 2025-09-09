@@ -29,7 +29,7 @@ app.use("/api/gallery", require("./Routes/galleryRoute"));
 app.use("/api/ebrochure", require("./Routes/ebrochureRoute"));
 // app.use("/api/contact", require("./Routes/sliderRoute"));
 
-const API_URL = "https://zanord-backend.onrender.com/bath";
+const API_URL = "https://zanord-backend.onrender.com/health";
 cron.schedule("*/10 * * * *", async () => {
   try {
     console.log("Pinging server to keep it awake:", new Date().toISOString());
