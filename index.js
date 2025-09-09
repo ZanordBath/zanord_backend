@@ -6,9 +6,21 @@ const cron = require("node-cron");
 const axios = require("axios");
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",  // dev
+  "https://zanordbath.com", // production
+];
 
 app.use(cors({
-  origin: "https://zanordbath.com", // Allow all origins (temporary for debugging)
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error("Not allowed by CORS"), false);
+    }
+    return callback(null, true);
+  },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
