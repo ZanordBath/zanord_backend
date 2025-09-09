@@ -10,7 +10,6 @@
     "mongoose": "^8.18.0",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.6",
-    "nodemon": "^3.1.10",
-    "ssh2-sftp-client": "^12.0.1"
+    "nodemon": "^3.1.10"
   }
 }
