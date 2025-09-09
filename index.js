@@ -2,8 +2,10 @@ const express = require("express");
 const port = 5000;
 const cors = require("cors");
 const connectDB = require("./Config/db");
+const cron = require("node-cron");
+const axios = require("axios");
 
-const app = express(); 
+const app = express();
 
 app.use(cors({
   origin: "http://localhost:5173", // Allow all origins (temporary for debugging)
@@ -14,7 +16,7 @@ app.use(cors({
 
 connectDB();
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/api", require("./Routes/LoginRoute"));
@@ -26,6 +28,18 @@ app.use("/api/product", require("./Routes/productRoute"));
 app.use("/api/gallery", require("./Routes/galleryRoute"));
 app.use("/api/ebrochure", require("./Routes/ebrochureRoute"));
 // app.use("/api/contact", require("./Routes/sliderRoute"));
+
+const API_URL = "https://zanord-backend.onrender.com/bath";
+cron.schedule("*/10 * * * *", async () => {
+  try {
+    console.log("Pinging server to keep it awake:", new Date().toISOString());
+    const response = await axios.get(API_URL);
+    console.log("Ping successful:", response.data);
+  } catch (error) {
+    console.error("Ping failed:", error.message);
+  }
+});
+
 
 connectDB().then(() => {
   app.listen(port, () => {
